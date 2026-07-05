@@ -11,8 +11,7 @@ services:
       - key: PORT
         value: 8080
       - key: MONGO_URI
-        # IMPORTANT: Replace this with your actual MongoDB Atlas Connection String
-        value: mongodb+srv://<username>:<password>@cluster0.mongodb.net/learnpilot?retryWrites=true&w=majority
+        value: mongodb+srv://barathash77_db_user:N51iKCTt2PMxcaHr@cluster0.mhew8wh.mongodb.net/learnpilot?appName=Cluster0
       - key: GROQ_API_KEY
         # IMPORTANT: Replace this with your actual Groq API Key
         sync: false
