@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: learnpilot-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - learnpilot-net
+
+  backend:
+    build: ./backend
+    container_name: learnpilot-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/learnpilot
+    depends_on:
+      - mongodb
+    networks:
+      - learnpilot-net
+
+  frontend:
+    image: node:20-alpine
+    container_name: learnpilot-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - learnpilot-net
+
+networks:
+  learnpilot-net:
+    driver: bridge
+
+volumes:
+  mongodb_data:
